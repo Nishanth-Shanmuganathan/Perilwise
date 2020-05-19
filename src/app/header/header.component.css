@@ -1,0 +1,36 @@
+mat-toolbar {
+  width: 100%;
+  max-height: 70px;
+  min-height: 50px;
+}
+
+img {
+  width: 50px;
+}
+
+.nav-items {
+  list-style: none;
+  font-size: 16px;
+  display: inline-flex;
+  padding-left: 5px;
+}
+
+span {
+  padding-left: 5px;
+  margin: 10px;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover,
+a:active,
+.active {
+  color: rgb(189, 189, 189);
+}
+
+.sidebar-toggler {
+  position: absolute;
+}

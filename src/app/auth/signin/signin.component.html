@@ -1,0 +1,83 @@
+<div class="form-wrapper">
+  <form novalidate [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+    <table cellpadding="5">
+      <tr>
+        <td>
+          <mat-form-field fxFill>
+            <mat-label>Email Id</mat-label>
+            <input
+              formControlName="email"
+              matNativeControl
+              type="text"
+              placeholder="Enter your email id..."
+            />
+            <button type="button" mat-icon-button matSuffix disabled>
+              <mat-icon>email</mat-icon>
+            </button>
+            <mat-error *ngIf="signinForm.get('email').errors?.required">
+              E-mail Id is required...
+            </mat-error>
+            <mat-error *ngIf="signinForm.get('email').errors?.email">
+              E-mail Id invalid...
+            </mat-error>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field fxFill>
+            <mat-label>Password</mat-label>
+            <input
+              formControlName="password"
+              matInput
+              [type]="helperPasswordVisible ? 'text' : 'password'"
+              placeholder="Enter your password..."
+            />
+            <button
+              type="button"
+              mat-icon-button
+              matSuffix
+              (click)="helperPasswordVisible = !helperPasswordVisible"
+            >
+              <mat-icon>{{
+                helperPasswordVisible ? "visibility_off" : "visibility"
+              }}</mat-icon>
+            </button>
+            <mat-hint>Should between 6 - 12 characters</mat-hint>
+            <mat-error *ngIf="signinForm.get('password').errors?.required">
+              Password is required...
+            </mat-error>
+            <mat-error
+              *ngIf="
+                !signinForm.get('password').errors?.required &&
+                signinForm.get('password').status === 'INVALID'
+              "
+            >
+              Password invalid...
+            </mat-error>
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td fxLayoutAlign="center">
+          <button
+            type="submit"
+            mat-raised-button
+            class="btn-block"
+            color="primary"
+          >
+            <span> Login</span>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td fxLayoutAlign="center" style="padding-top: 20px;">
+          <span
+            >Do not have an account ?
+            <a routerLink="register"> Register</a></span
+          >
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
