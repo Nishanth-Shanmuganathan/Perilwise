@@ -1,5 +1,9 @@
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+
+import { CompanyService } from './../services/company.service';
+import { Company } from './../models/company.model';
 
 @Component({
   selector: 'app-create-company',
@@ -9,7 +13,10 @@ import { Component, OnInit } from '@angular/core';
 export class CreateCompanyComponent implements OnInit {
 
   companyForm: FormGroup;
-  constructor() { }
+
+  constructor(
+    private dialog: MatDialog,
+    private companyService: CompanyService) { }
 
   ngOnInit(): void {
     this.companyForm = new FormGroup({
@@ -25,6 +32,20 @@ export class CreateCompanyComponent implements OnInit {
 
   onSubmit() {
     if (this.companyForm.invalid) { return; }
+    const company: Company = {
+      companyName: this.companyForm.get('company-name').value,
+      contactPersonName: this.companyForm.get('contact-person').value,
+      contactPersonEmail: this.companyForm.get('contact-person-email').value,
+      address: this.companyForm.value.address,
+      city: this.companyForm.value.city,
+      state: this.companyForm.value.state,
+      product: this.companyForm.value.product,
+    };
+    this.companyService.createCompany(company)
+      .subscribe(res => {
+        this.companyForm.reset();
+        this.dialog.closeAll();
+      }, err => console.error(err));
   }
 
 }

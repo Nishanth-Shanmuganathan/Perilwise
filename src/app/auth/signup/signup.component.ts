@@ -1,3 +1,5 @@
+import { Auth } from './../../models/auth.model';
+import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -13,7 +15,8 @@ export class SignupComponent implements OnInit {
 
   helperPasswordVisible = false;
   helperConfirmPasswordVisible = false;
-  constructor() { }
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
     this.signupForm = new FormGroup({
@@ -31,7 +34,14 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.signupForm);
+    const regCredentials: Auth = {
+      email: this.signupForm.value.email,
+      password: this.signupForm.value.password,
+      confirmPassword: this.signupForm.value.confirmPassword
+    }
+    console.log(regCredentials);
+    this.authService.registerUser(regCredentials, this.signupForm.value.advertise)
+      .subscribe(res => console.log(res), err => console.error(err));
   }
 
 }

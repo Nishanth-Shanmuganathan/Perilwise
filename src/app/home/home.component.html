@@ -18,11 +18,8 @@
   fxLayout="row wrap"
   fxLayoutAlign="space-evenly center"
 >
-  <app-company-card></app-company-card>
-  <app-company-card></app-company-card>
-  <app-company-card></app-company-card>
-  <app-company-card></app-company-card>
-  <app-company-card></app-company-card>
-  <app-company-card></app-company-card>
-  <app-company-card></app-company-card>
+  <app-company-card
+    *ngFor="let company of companies"
+    [company]="company"
+  ></app-company-card>
 </section>

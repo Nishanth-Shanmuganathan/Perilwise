@@ -1,3 +1,5 @@
+import { Company } from './../models/company.model';
+import { CompanyService } from './../services/company.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateCompanyComponent } from '../create-company/create-company.component';
@@ -9,11 +11,21 @@ import { CreateCompanyComponent } from '../create-company/create-company.compone
 })
 export class HomeComponent implements OnInit {
 
+  companies: Company[];
+
   helperDisplayForm = false;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(
+    private dialog: MatDialog,
+    private companyService: CompanyService
+  ) { }
 
   ngOnInit(): void {
+    this.companyService.getCompany()
+      .subscribe(res => {
+        this.companies = res;
+      },
+        err => console.error(err));
   }
 
   openDialog() {

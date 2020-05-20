@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Company } from './../models/company.model';
+import { Component, OnInit, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -7,6 +8,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./company-card.component.css']
 })
 export class CompanyCardComponent implements OnInit {
+
+  @Input() company: Company;
 
   constructor(private snackbar: MatSnackBar) { }
 

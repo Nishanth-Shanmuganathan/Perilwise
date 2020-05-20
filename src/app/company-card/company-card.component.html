@@ -1,7 +1,9 @@
 <mat-card class="company-card">
   <mat-card-header>
-    <mat-card-title>Company Name</mat-card-title>
-    <mat-card-subtitle>City, State</mat-card-subtitle>
+    <mat-card-title>{{ company.companyName }}</mat-card-title>
+    <mat-card-subtitle
+      >{{ company.city }} , {{ company.state }}</mat-card-subtitle
+    >
   </mat-card-header>
   <img mat-card-image src="../../assets/company.jpg" />
 
