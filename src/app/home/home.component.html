@@ -1,0 +1,28 @@
+<mat-toolbar>
+  <mat-toolbar-row fxLayoutAlign="end center">
+    <div class="create">
+      <button
+        mat-fab
+        color="primary"
+        (click)="openDialog()"
+        matTooltip="Create a new company"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<section
+  class="company-showcase"
+  fxLayout="row wrap"
+  fxLayoutAlign="space-evenly center"
+>
+  <app-company-card></app-company-card>
+  <app-company-card></app-company-card>
+  <app-company-card></app-company-card>
+  <app-company-card></app-company-card>
+  <app-company-card></app-company-card>
+  <app-company-card></app-company-card>
+  <app-company-card></app-company-card>
+</section>

@@ -1,7 +1,6 @@
 mat-toolbar {
   width: 100%;
-  max-height: 70px;
-  min-height: 50px;
+  min-height: 10vh;
 }
 
 img {
@@ -33,4 +32,9 @@ a:active,
 
 .sidebar-toggler {
   position: absolute;
+}
+
+li:hover {
+  cursor: pointer;
+  color: silver;
 }

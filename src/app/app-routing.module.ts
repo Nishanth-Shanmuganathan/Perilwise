@@ -1,3 +1,4 @@
+import { HomeComponent } from './home/home.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { AuthComponent } from './auth/auth.component';
@@ -6,6 +7,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
+  { path: '', component: HomeComponent },
   {
     path: 'auth', component: AuthComponent, children: [
       { path: '', component: SigninComponent, },

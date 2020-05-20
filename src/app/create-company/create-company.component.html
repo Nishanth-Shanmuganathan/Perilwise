@@ -1,0 +1,117 @@
+<div class="logo">
+  <img src="../../assets/perilwise.logo.jpg" />
+  <span>Perilwise</span>
+</div>
+<form novalidate [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+  <table>
+    <tr>
+      <td colspan="2">
+        <mat-form-field fxFill>
+          <mat-label>Company Name</mat-label>
+          <input
+            formControlName="company-name"
+            matInput
+            type="text"
+            placeholder="Ex: Perilwise Insuretech..."
+          />
+          <mat-error>Company name is required</mat-error>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <mat-form-field fxFill>
+          <mat-label>Contact Person Name</mat-label>
+          <input
+            formControlName="contact-person"
+            matInput
+            type="text"
+            placeholder="Company's contact person..."
+          />
+          <mat-error>Contact person's name is required</mat-error>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <mat-form-field fxFill>
+          <mat-label>Contact Person Mail Id</mat-label>
+          <input
+            formControlName="contact-person-email"
+            matInput
+            type="mail"
+            placeholder="Contact person's email..."
+          />
+          <mat-error>
+            {{
+              companyForm.get("contact-person-email").errors?.email
+                ? "Email is invalid"
+                : "Contact person's email is required"
+            }}
+          </mat-error>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <mat-form-field fxFill>
+          <mat-label>Address</mat-label>
+          <textarea
+            matInput
+            formControlName="address"
+            placeholder="Address"
+          ></textarea>
+          <mat-error>Address is required</mat-error>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field>
+          <mat-label>City</mat-label>
+          <input
+            formControlName="city"
+            matInput
+            type="text"
+            placeholder="City..."
+          />
+          <mat-error>City is required</mat-error>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <mat-label>State</mat-label>
+          <input
+            formControlName="state"
+            matInput
+            type="text"
+            placeholder="State..."
+          />
+          <mat-error>State is required</mat-error>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <mat-form-field fxFill>
+          <mat-label>Product required</mat-label>
+          <mat-select formControlName="product">
+            <mat-option value="car">Car</mat-option>
+            <mat-option value="bike">Bike</mat-option>
+            <mat-option value="pa">PA</mat-option>
+            <mat-option value="travel">Travel</mat-option>
+            <mat-option value="health">Health</mat-option>
+          </mat-select>
+          <mat-error>Product is required</mat-error>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <button type="submit" mat-raised-button color="primary">
+          Create Company
+        </button>
+      </td>
+    </tr>
+  </table>
+</form>

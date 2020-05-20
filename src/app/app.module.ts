@@ -11,6 +11,9 @@ import { HeaderComponent } from './header/header.component';
 import { AuthComponent } from './auth/auth.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { HomeComponent } from './home/home.component';
+import { CreateCompanyComponent } from './create-company/create-company.component';
+import { CompanyCardComponent } from './company-card/company-card.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { SignupComponent } from './auth/signup/signup.component';
     HeaderComponent,
     AuthComponent,
     SigninComponent,
-    SignupComponent
+    SignupComponent,
+    HomeComponent,
+    CreateCompanyComponent,
+    CompanyCardComponent
   ],
   imports: [
     BrowserModule,

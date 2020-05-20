@@ -1,0 +1,16 @@
+.create {
+  margin: 5% 5% 0% 0%;
+}
+
+mat-toolbar {
+  background-color: transparent;
+}
+
+.company-showcase {
+  margin: 5% 5% 0% 5%;
+  /* background-color: red; */
+}
+
+app-company-card {
+  margin-bottom: 3%;
+}
