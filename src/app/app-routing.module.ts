@@ -1,3 +1,5 @@
+import { Err404Component } from './err404/err404.component';
+import { FormComponent } from './aboutform/form/form.component';
 import { HomeComponent } from './home/home.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
@@ -13,7 +15,9 @@ const routes: Routes = [
       { path: '', component: SigninComponent, },
       { path: 'register', component: SignupComponent },
     ]
-  }
+  },
+  { path: 'form/:id', component: FormComponent },
+  { path: '**', component: Err404Component }
 ];
 
 @NgModule({

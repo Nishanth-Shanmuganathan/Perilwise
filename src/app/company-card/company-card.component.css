@@ -4,5 +4,12 @@
 }
 
 mat-card {
-  width: 300px;
+  width: 20vw;
+  min-width: 300px;
+}
+
+img {
+  width: calc(20vw - 20px);
+  margin-left: 10px;
+  min-width: 250px;
 }

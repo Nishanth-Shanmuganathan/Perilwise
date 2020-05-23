@@ -5,11 +5,11 @@ const mongoose = require('mongoose')
 const app = express();
 
 mongoose.connect('mongodb+srv://Nishanth:Kavundan@5@cluster0-ggytq.mongodb.net/perilwise?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log('Connected to database');
+  .then((res) => {
+    console.log('Connection Successful...');
   })
-  .catch(() => {
-    console.error('Connection Failed..');
+  .catch((err) => {
+    console.log(err);
   })
 
 const companyController = require('./controller/company.controller');
@@ -25,9 +25,10 @@ app.use(authController.cors);
 app.get('', companyController.getCompanies)
 app.post('/', companyController.addCompanies)
 
-app.post("/auth/register", authController.register);
-app.post("/auth/login", authController.register);
+app.post('/auth/register', authController.register);
+app.post('/auth/login', authController.register);
 
+app.post('/add-details/:id', companyController.addCompanyDetails);
 
 app.listen(3200)
 console.log('listening...');

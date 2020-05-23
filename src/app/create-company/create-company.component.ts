@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { MessageComponent } from './../message/message.component';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { CompanyService } from './../services/company.service';
 import { Company } from './../models/company.model';
@@ -13,6 +14,8 @@ import { Company } from './../models/company.model';
 export class CreateCompanyComponent implements OnInit {
 
   companyForm: FormGroup;
+
+  helperFormAction = 'pristine';
 
   constructor(
     private dialog: MatDialog,
@@ -32,6 +35,7 @@ export class CreateCompanyComponent implements OnInit {
 
   onSubmit() {
     if (this.companyForm.invalid) { return; }
+    this.helperFormAction = 'loading';
     const company: Company = {
       companyName: this.companyForm.get('company-name').value,
       contactPersonName: this.companyForm.get('contact-person').value,
@@ -43,9 +47,17 @@ export class CreateCompanyComponent implements OnInit {
     };
     this.companyService.createCompany(company)
       .subscribe(res => {
+        this.companyService.companies.push(res.data);
+        console.log(res);
+        this.companyService.companySubject.next();
         this.companyForm.reset();
-        this.dialog.closeAll();
-      }, err => console.error(err));
+        this.helperFormAction = 'submitted';
+      });
+  }
+
+  helperFnDismiss() {
+    this.dialog.closeAll();
+    this.helperFormAction = 'pristine';
   }
 
 }

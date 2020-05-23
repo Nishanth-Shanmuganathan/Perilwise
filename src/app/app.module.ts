@@ -15,6 +15,11 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { HomeComponent } from './home/home.component';
 import { CreateCompanyComponent } from './create-company/create-company.component';
 import { CompanyCardComponent } from './company-card/company-card.component';
+import { MessageComponent } from './message/message.component';
+import { FooterComponent } from './footer/footer.component';
+import { AboutformComponent } from './aboutform/aboutform.component';
+import { FormComponent } from './aboutform/form/form.component';
+import { Err404Component } from './err404/err404.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +30,12 @@ import { CompanyCardComponent } from './company-card/company-card.component';
     SignupComponent,
     HomeComponent,
     CreateCompanyComponent,
-    CompanyCardComponent
+    CompanyCardComponent,
+    MessageComponent,
+    FooterComponent,
+    AboutformComponent,
+    FormComponent,
+    Err404Component
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,14 @@
+.header {
+  min-height: 10vh;
+  background-color: red;
+}
+
+app-form {
+  min-height: 80vh;
+  background-color: red;
+}
+
+.footer {
+  min-height: 10vh;
+  background-color: red;
+}

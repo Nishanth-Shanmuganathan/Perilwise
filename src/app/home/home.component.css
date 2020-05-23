@@ -2,15 +2,51 @@
   margin: 5% 5% 0% 0%;
 }
 
-mat-toolbar {
-  background-color: transparent;
+.poster {
+  min-height: 90vh;
+  width: 100vw;
+}
+
+.left {
+  width: 60%;
+  height: inherit;
+}
+
+.right {
+  width: 40%;
+  height: inherit;
+}
+
+img {
+  width: 80%;
 }
 
 .company-showcase {
-  margin: 5% 5% 0% 5%;
+  margin: 3% 5% 0% 5%;
   /* background-color: red; */
 }
 
 app-company-card {
   margin-bottom: 3%;
+}
+
+p:nth-child(1) {
+  font-size: xx-large;
+  line-height: 1.5;
+  word-wrap: break-word;
+  padding: 10px;
+}
+
+p:nth-child(2) {
+  font-size: 26px;
+}
+
+button {
+  margin: 10px;
+  width: 200px;
+  height: 50px;
+  font-size: 20px;
+  color: white;
+  background-color: #3F51B5;
+  box-shadow: 5px 5px 10px rgb(150, 150, 150);
 }

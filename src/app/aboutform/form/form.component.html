@@ -1,0 +1,596 @@
+<mat-horizontal-stepper
+  [linear]="true"
+  #stepper
+  *ngIf="helperStatus === 'pristine' || helperStatus === 'loading'"
+>
+  <mat-step [stepControl]="perquisites">
+    <form
+      [formGroup]="perquisites"
+      class="first"
+      (ngSubmit)="onSubmit(stepper)"
+    >
+      <ng-template matStepLabel>Company Details Form</ng-template>
+      <table>
+        <tbody formGroupName="company">
+          <tr>
+            <td colspan="2">
+              <mat-form-field fxFill>
+                <mat-label>Company Name<span class="warn"> *</span></mat-label>
+                <input formControlName="name" matInput type="text" />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <mat-form-field fxFill>
+                <mat-label
+                  >Company SPOC Name<span class="warn"> *</span></mat-label
+                >
+                <input formControlName="spocName" matInput type="text" />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <mat-form-field fxFill>
+                <mat-label
+                  >Company SPOC Mobile<span class="warn"> *</span></mat-label
+                >
+                <input formControlName="spocMobile" matInput type="text" />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <mat-form-field fxFill>
+                <mat-label
+                  >Company SPOC E-mail Id<span class="warn"> *</span></mat-label
+                >
+                <input formControlName="spocEmail" matInput type="mail" />
+              </mat-form-field>
+            </td>
+          </tr>
+        </tbody>
+        <tbody formGroupName="it">
+          <tr>
+            <td colspan="2">
+              <mat-form-field fxFill>
+                <mat-label
+                  >IT Vendor Name<span class="warn"> *</span></mat-label
+                >
+                <input formControlName="name" matInput type="text" />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <mat-form-field fxFill>
+                <mat-label>IT SPOC Name<span class="warn"> *</span></mat-label>
+                <input formControlName="spocName" matInput type="text" />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <mat-form-field fxFill>
+                <mat-label
+                  >IT SPOC Mobile<span class="warn"> *</span></mat-label
+                >
+                <input formControlName="spocMobile" matInput type="text" />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <mat-form-field fxFill>
+                <mat-label
+                  >IT SPOC E-mail Id<span class="warn"> *</span></mat-label
+                >
+                <input formControlName="spocEmail" matInput type="mail" />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <mat-form-field fxFill>
+                <mat-label
+                  >IT platform to be used for development<span class="warn">
+                    *</span
+                  >
+                </mat-label>
+                <input formControlName="platform" matInput type="text" />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-form-field class="center">
+                <mat-label
+                  >Started developing app<span class="warn"> *</span></mat-label
+                >
+                <input
+                  formControlName="start"
+                  matInput
+                  [matDatepicker]="picker"
+                  [(ngModel)]="start"
+                  readonly
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker disabled="false"></mat-datepicker>
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field class="center">
+                <mat-label
+                  >Finished developing app<span class="warn">
+                    *</span
+                  ></mat-label
+                >
+                <input
+                  formControlName="end"
+                  matInput
+                  [matDatepicker]="picker2"
+                  readonly
+                  [min]="start"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker2"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker2 disabled="false"></mat-datepicker>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <mat-form-field fxFill>
+                <mat-label
+                  >Public IP Address (UAT and Production)<span class="warn">
+                    *</span
+                  >
+                </mat-label>
+                <input formControlName="ip" matInput type="text" />
+              </mat-form-field>
+            </td>
+          </tr>
+        </tbody>
+        <tr>
+          <td class="right" colspan="2">
+            <button mat-raised-button color="primary" type="submit">
+              Next
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="form">
+    <form
+      [formGroup]="form"
+      fxLayoutAlign="center center"
+      (ngSubmit)="onSubmit(stepper)"
+    >
+      <ng-template matStepLabel>Additional Details Form</ng-template>
+      <table>
+        <tbody formGroupName="serviceProvider">
+          <tr>
+            <td colspan="2">
+              <mat-form-field fxFill>
+                <mat-label
+                  ><span class="warn"> *</span>Name of vendor/service
+                  provider</mat-label
+                >
+                <input formControlName="name" matInput type="text" />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <mat-form-field fxFill>
+                <mat-label
+                  ><span class="warn"> *</span>Constitution of vendor/service
+                  provider
+                </mat-label>
+                <input formControlName="constitution" matInput type="text" />
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span class="warn"> *</span>Whether vendor/service provider is an
+              Indian entity or foreign entity.
+            </td>
+            <td>
+              <mat-radio-group formControlName="entity">
+                <mat-radio-button color="primary" value="indian-entity"
+                  >Indian entity</mat-radio-button
+                ><br />
+                <mat-radio-button color="primary" value="foreign-entity">
+                  Foreign entity</mat-radio-button
+                ><br />
+              </mat-radio-group>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <mat-form-field fxFill>
+                <mat-label
+                  ><span class="warn"> *</span>Nature/scope of services [please
+                  provide the full details point wise and including process as
+                  to how it is implemented].
+                </mat-label>
+                <textarea
+                  formControlName="natureOfServices"
+                  matInput
+                ></textarea>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <mat-form-field fxFill>
+                <mat-label
+                  ><span class="warn"> *</span>Whether the Service Provider will
+                  provide only the services without any licensing of software
+                  products or it is only for software products without services
+                  or for both.
+                </mat-label>
+                <input matInput formControlName="services" type="text" />
+              </mat-form-field>
+            </td>
+          </tr>
+        </tbody>
+        <tbody formGroupName="bagic">
+          <tr>
+            <td>
+              <span class="warn"> *</span>If software purchase agreement Whether
+              source code will be got by BAGIC or not.
+            </td>
+            <td>
+              <mat-radio-group formControlName="softwarePurchaseAgreement">
+                <mat-radio-button color="primary" [value]="false"
+                  >No</mat-radio-button
+                ><br />
+                <mat-radio-button color="primary" [value]="true">
+                  Yes</mat-radio-button
+                ><br />
+              </mat-radio-group>
+            </td>
+          </tr>
+          <mat-divider></mat-divider>
+          <tr>
+            <td>
+              <span class="warn"> *</span>Is the Service Provider provides its
+              services with his employees come and work onsite of BAGIC servers
+              or is it off site or both.
+            </td>
+            <td>
+              <mat-radio-group formControlName="location">
+                <mat-radio-button color="primary" value="onsite"
+                  >On-site</mat-radio-button
+                ><br />
+                <mat-radio-button color="primary" value="offsite">
+                  Off-site</mat-radio-button
+                ><br />
+                <mat-radio-button color="primary" value="both">
+                  Both</mat-radio-button
+                ><br />
+              </mat-radio-group>
+            </td>
+          </tr>
+          <mat-divider></mat-divider>
+          <tr>
+            <td>
+              <span class="warn"> *</span>Do BAGIC share any Confidential
+              Information to the Service Provider in the process of availing the
+              Services.
+            </td>
+            <td>
+              <mat-radio-group formControlName="confidentialInfoShare">
+                <mat-radio-button color="primary" [value]="false"
+                  >No</mat-radio-button
+                ><br />
+                <mat-radio-button color="primary" [value]="true">
+                  Yes</mat-radio-button
+                ><br />
+              </mat-radio-group>
+            </td>
+          </tr>
+          <mat-divider></mat-divider>
+          <tr>
+            <td>
+              <span class="warn"> *</span>If NDA whether both parties are
+              sharing information or only we are sharing or only service
+              provider is sharing the confidential information.
+            </td>
+            <td>
+              <mat-radio-group formControlName="sharing">
+                <mat-radio-button color="primary" value="company_is_sharing"
+                  >Company is sharing</mat-radio-button
+                ><br />
+                <mat-radio-button
+                  color="primary"
+                  value="service_provider_sharing"
+                >
+                  Service Provider only</mat-radio-button
+                ><br />
+                <mat-radio-button color="primary" value="both_sharing">
+                  Both</mat-radio-button
+                ><br />
+              </mat-radio-group>
+            </td>
+          </tr>
+          <mat-divider></mat-divider>
+          <tr>
+            <td>
+              <span class="warn"> *</span>If use of the servers of
+              vendor/service provider is involved then whether the servicers are
+              in India.
+            </td>
+            <td>
+              <mat-radio-group formControlName="inIndia">
+                <mat-radio-button color="primary" [value]="false"
+                  >No</mat-radio-button
+                ><br />
+                <mat-radio-button color="primary" [value]="true">
+                  Yes</mat-radio-button
+                ><br />
+              </mat-radio-group>
+            </td>
+          </tr>
+          <mat-divider></mat-divider>
+          <tr>
+            <td>
+              <span class="warn"> *</span>Commercials approved by competent
+              authority or not and if approved details thereof with relevant
+              mails.
+            </td>
+            <td>
+              <mat-radio-group formControlName="commercialsApproval">
+                <mat-radio-button color="primary" [value]="false"
+                  >No</mat-radio-button
+                ><br />
+                <mat-radio-button color="primary" [value]="true">
+                  Yes</mat-radio-button
+                ><br />
+              </mat-radio-group>
+            </td>
+          </tr>
+          <mat-divider></mat-divider>
+        </tbody>
+        <tr>
+          <td colspan="2">
+            <mat-form-field fxFill>
+              <mat-label
+                >If apart from Agreement any SOW to be agreed, whether IT has
+                vetted such SOW and given go ahead or not. If not please vet and
+                give clearance on the SOW.
+              </mat-label>
+              <input formControlName="sow" matInput type="text" />
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="warn"> *</span>The period of the Agreement with
+            vendor/service provider
+          </td>
+          <td>
+            <mat-form-field fxFill>
+              <input
+                formControlName="periodOfAgreement"
+                matInput
+                type="number"
+                placeholder="Period in years..."
+                min="0"
+              />
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr></tr>
+        <tr>
+          <td>
+            Please inform is the period of the Agreement is locked without any
+            right to terminate? If yes please send the competent authority’s
+            approval.
+          </td>
+          <td>
+            <div fxFill>
+              <button
+                type="button"
+                mat-stroked-button
+                color="primary"
+                (click)="filepicker.click()"
+              >
+                Upload approval
+              </button>
+              <span>
+                {{ form.get("approvalFile").value?.name }}
+              </span>
+              <input
+                class="approvalFile"
+                type="file"
+                #filepicker
+                (change)="fileUpload($event)"
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <small
+              >Please note that BAGIC have to have right to terminate the
+              Agreement without any penalty and hence not having termination
+              rights is contrary to IRDAI guidelines.</small
+            >
+          </td>
+        </tr>
+        <mat-divider> </mat-divider>
+        <tr>
+          <td>
+            <span class="warn"> *</span>Is any auto renewal of term of the
+            Agreement is there and whether such auto renewal is agreed by
+            competent authority.
+          </td>
+          <td>
+            <mat-radio-group formControlName="autoRenewal">
+              <mat-radio-button color="primary" [value]="false"
+                >No</mat-radio-button
+              ><br />
+              <mat-radio-button color="primary" [value]="true">
+                Yes</mat-radio-button
+              ><br />
+            </mat-radio-group>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <mat-form-field fxFill>
+              <mat-label
+                >Are there any other specific conditions agreed with
+                vendor/service provider? If yes please specify.
+              </mat-label>
+              <input
+                formControlName="specificConditions"
+                matInput
+                type="text"
+              />
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="warn"> *</span>Exact date from which MOU will be valid
+            (effective date)
+          </td>
+          <td>
+            <mat-form-field class="center">
+              <input
+                formControlName="mouDate"
+                matInput
+                [matDatepicker]="picker1"
+                placeholder="Select the date.."
+                readonly
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="warn"> *</span>Agreement/MOU is for what period?</td>
+          <td>
+            <mat-form-field fxFill>
+              <input
+                formControlName="mouPeriod"
+                matInput
+                type="number"
+                placeholder="Period in years..."
+                min="0"
+              />
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <mat-form-field fxFill>
+              <mat-label
+                ><span class="warn"> *</span>Names of Signing authority to the
+                agreement from tie up partner.
+              </mat-label>
+              <input
+                formControlName="signingAuthPartner"
+                matInput
+                type="text"
+              />
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <mat-form-field fxFill>
+              <mat-label
+                ><span class="warn"> *</span>Names of Signing authority to the
+                agreement (BAGIC) (Not below the role of City Head).
+              </mat-label>
+              <input formControlName="signingAuthBagic" matInput type="text" />
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Do we have any existing agreements with this party and if so copies
+            of the same be provided.
+          </td>
+          <td>
+            <div fxFill>
+              <button
+                type="button"
+                mat-stroked-button
+                color="primary"
+                (click)="copyPicker.click()"
+              >
+                Upload agreement
+              </button>
+              <span>
+                {{ form.get("agreementFile").value?.name }}
+              </span>
+              <input
+                class="agreementFile"
+                type="file"
+                #copyPicker
+                (change)="fileUpload($event)"
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <mat-form-field fxFill>
+              <mat-label>Any other aspects not covered above. </mat-label>
+              <textarea formControlName="otherAspects" matInput></textarea>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <button class="blue" mat-raised-button matStepperPrevious>
+              Back
+            </button>
+          </td>
+          <td class="right">
+            <button mat-raised-button color="primary" type="submit">
+              {{ helperStatus === "loading" ? "Submitting..." : "Submit" }}
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </mat-step>
+</mat-horizontal-stepper>
+
+<mat-card class="main-card" *ngIf="helperStatus === 'submitted'">
+  <mat-card class="in-card"><p>Registration successful..</p></mat-card>
+  <p>
+    Your response has been successfully submitted..
+  </p>
+  <p>
+    Thank you for your interest..
+  </p>
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      color="primary"
+      class="dismiss"
+      (click)="helperFnRedirect()"
+    >
+      Take me to Perilwise ...
+    </button>
+  </mat-card-actions>
+</mat-card>

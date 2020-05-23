@@ -21,11 +21,10 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.companyService.getCompany()
-      .subscribe(res => {
-        this.companies = res;
-      },
-        err => console.error(err));
+    this.companyService.getCompany();
+    this.companyService.companySubject.subscribe(res => {
+      this.companies = this.companyService.companies;
+    })
   }
 
   openDialog() {

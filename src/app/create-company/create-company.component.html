@@ -2,19 +2,24 @@
   <img src="../../assets/perilwise.logo.jpg" />
   <span>Perilwise</span>
 </div>
-<form novalidate [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+<form
+  novalidate
+  [formGroup]="companyForm"
+  (ngSubmit)="onSubmit()"
+  *ngIf="helperFormAction === 'pristine' || helperFormAction === 'loading'"
+>
   <table>
     <tr>
       <td colspan="2">
         <mat-form-field fxFill>
-          <mat-label>Company Name</mat-label>
+          <mat-label>Organization Name</mat-label>
           <input
             formControlName="company-name"
             matInput
             type="text"
-            placeholder="Ex: Perilwise Insuretech..."
+            placeholder="Organization Name..."
           />
-          <mat-error>Company name is required</mat-error>
+          <mat-error>Organization name is required</mat-error>
         </mat-form-field>
       </td>
     </tr>
@@ -109,9 +114,38 @@
     <tr>
       <td colspan="2">
         <button type="submit" mat-raised-button color="primary">
-          Create Company
+          {{
+            helperFormAction === "pristine"
+              ? "Create Organization Profile"
+              : "Creating..."
+          }}
         </button>
       </td>
     </tr>
   </table>
 </form>
+
+<mat-card class="main-card" *ngIf="helperFormAction === 'submitted'">
+  <mat-card class="in-card"><p>Registration successful..</p></mat-card>
+  <p>
+    Registration Form has been sent to the contact person of the organization
+    via mail.
+  </p>
+  <p>
+    Please proceed with further registration process with the link provided in
+    the mail.
+  </p>
+  <p>
+    Thank you..
+  </p>
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      color="primary"
+      class="dismiss"
+      (click)="helperFnDismiss()"
+    >
+      Okay!!
+    </button>
+  </mat-card-actions>
+</mat-card>
