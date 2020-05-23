@@ -1,28 +1,54 @@
-import { AboutFormService } from './../../services/aboutform.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit, DoCheck } from '@angular/core';
-import { ActivatedRouteSnapshot, ActivatedRoute, Router } from '@angular/router';
+
+import { AboutformComponent } from './../aboutform.component';
+import { MessageComponent } from './../../message/message.component';
+
+import { AuthService } from './../../services/auth.service';
+import { AboutFormService } from './../../services/aboutform.service';
+
+import { displayFadeStateTrigger } from 'src/app/shared/animations';
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
-  styleUrls: ['./form.component.css']
+  styleUrls: ['./form.component.css'],
+  animations: [displayFadeStateTrigger]
 })
 export class FormComponent implements OnInit {
-
+  fetchedData;
   form: FormGroup;
   perquisites: FormGroup;
   start: Date;
 
-  helperStatus = 'submitted';
+  helperStatus = 'pristine';
+  helperFormHide = false;
 
   constructor(
-    public aboutformServie: AboutFormService,
+    public aboutformService: AboutFormService,
     private activatedRoute: ActivatedRoute,
-    private route: Router
+    private route: Router,
+    private aboutform: AboutformComponent,
+    private dialog: MatDialog,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
+
+    this.aboutform.formData.subscribe(data => {
+      if (data.data.details === null && this.authService) {
+        this.helperFormHide = true;
+        this.dialog.open(MessageComponent, { disableClose: true });
+      } else {
+
+        this.fetchedData = data;
+        this.patchData();
+      }
+
+    })
+
     this.perquisites = new FormGroup({
       company: new FormGroup({
         name: new FormControl(null, [Validators.required]),
@@ -42,7 +68,6 @@ export class FormComponent implements OnInit {
       }),
     });
 
-
     this.form = new FormGroup({
       serviceProvider: new FormGroup({
         name: new FormControl(null, [Validators.required]),
@@ -61,14 +86,14 @@ export class FormComponent implements OnInit {
       }),
       sow: new FormControl(null),
       periodOfAgreement: new FormControl(0, [Validators.required]),
-      approvalFile: new FormControl(null),
+      // approvalFile: new FormControl(null),
       autoRenewal: new FormControl(false, [Validators.required]),
       specificConditions: new FormControl(null),
       mouDate: new FormControl(null, [Validators.required]),
       mouPeriod: new FormControl(0, [Validators.required]),
       signingAuthPartner: new FormControl(null, [Validators.required]),
       signingAuthBagic: new FormControl(null, [Validators.required]),
-      agreementFile: new FormControl(null),
+      // agreementFile: new FormControl(null),
       otherAspects: new FormControl(null)
     });
 
@@ -87,22 +112,91 @@ export class FormComponent implements OnInit {
     }
   }
 
-  onSubmit(stepper) {
+  onSubmitOne(stepper) {
     if (this.perquisites.invalid) { return; }
     stepper.next();
+  }
+
+  onSubmit() {
+    if (this.perquisites.invalid) { return; }
     if (this.form.invalid) { return; }
     this.helperStatus = 'loading';
-    this.aboutformServie.storeData([this.perquisites.value, this.form.value, this.activatedRoute.snapshot.params['id']])
+    this.aboutformService.storeData([this.perquisites.value, this.form.value, this.activatedRoute.snapshot.params['id']])
       .subscribe(res => {
-        console.log(res);
+        // console.log(res);
         this.helperStatus = 'submitted';
       },
         err => {
-          console.log(err);
+          // console.log(err);
         });
+  }
+
+  patchData() {
+    // console.log(this.fetchedData);
+    this.perquisites.setValue({
+      company: {
+        name: this.fetchedData.data.details.basicDetails.companyName,
+        spocName: this.fetchedData.data.details.basicDetails.companySpocName,
+        spocMobile: this.fetchedData.data.details.basicDetails.companySpocMobile,
+        spocEmail: this.fetchedData.data.details.basicDetails.companySpocEmail,
+      },
+      it: {
+        name: this.fetchedData.data.details.basicDetails.itName,
+        spocName: this.fetchedData.data.details.basicDetails.companyItName,
+        spocMobile: this.fetchedData.data.details.basicDetails.companyItMobile,
+        spocEmail: this.fetchedData.data.details.basicDetails.companyItEmail,
+        platform: this.fetchedData.data.details.basicDetails.platformUsed,
+        start: this.fetchedData.data.details.basicDetails.appStart,
+        end: this.fetchedData.data.details.basicDetails.appEnd,
+        ip: this.fetchedData.data.details.basicDetails.ip,
+      }
+    });
+    this.form.setValue({
+      serviceProvider: {
+        name: this.fetchedData.data.details.additionalDetails.serviceProvider.name,
+        constitution: this.fetchedData.data.details.additionalDetails.serviceProvider.constitution,
+        entity: this.fetchedData.data.details.additionalDetails.serviceProvider.entity,
+        natureOfServices: this.fetchedData.data.details.additionalDetails.serviceProvider.natureOfServices,
+        services: this.fetchedData.data.details.additionalDetails.serviceProvider.services,
+      },
+      bagic: {
+        softwarePurchaseAgreement: this.fetchedData.data.details.additionalDetails.bagic.softwarePurchaseAgreement,
+        location: this.fetchedData.data.details.additionalDetails.bagic.location,
+        confidentialInfoShare: this.fetchedData.data.details.additionalDetails.bagic.confidentialInfoShare,
+        sharing: this.fetchedData.data.details.additionalDetails.bagic.sharing,
+        inIndia: this.fetchedData.data.details.additionalDetails.bagic.inIndia,
+        commercialsApproval: this.fetchedData.data.details.additionalDetails.bagic.commercialsApproval
+      },
+      sow: this.fetchedData.data.details.additionalDetails.sow,
+      periodOfAgreement: this.fetchedData.data.details.additionalDetails.periodOfAgreement,
+      // approvalFile: this.fetchedData.data.details.additionalDetails.approvalFile || '',
+      autoRenewal: this.fetchedData.data.details.additionalDetails.autoRenewal,
+      specificConditions: this.fetchedData.data.details.additionalDetails.specificConditions,
+      mouDate: this.fetchedData.data.details.additionalDetails.mouDate,
+      mouPeriod: this.fetchedData.data.details.additionalDetails.mouPeriod,
+      signingAuthPartner: this.fetchedData.data.details.additionalDetails.signingAuthPartner,
+      signingAuthBagic: this.fetchedData.data.details.additionalDetails.signingAuthBagic,
+      // agreementFile: this.fetchedData.data.details.additionalDetails.agreementFile || '',
+      otherAspects: this.fetchedData.data.details.additionalDetails.otherAspects
+    })
   }
 
   helperFnRedirect() {
     this.route.navigate(['']);
   }
+
+
 }
+
+// dditionalDetails:
+// agreementFile: null
+// approvalFile: null
+// autoRenewal: true
+// mouDate: "2020-05-18T18:30:00.000Z"
+// mouPeriod: 2
+// otherAspects: "Yeahh yeaahh"
+// periodOfAgreement: 2
+// signingAuthBagic: "Ashwanth"
+// signingAuthPartner: "Nishanth"
+// sow: "Yes..yesss"
+// specificConditions: "No i m not

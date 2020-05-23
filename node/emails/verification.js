@@ -8,22 +8,18 @@ exports.autheticationMailer = (company) => {
   sgMail.send({
     to: company.contactPersonEmail,
     from: 'nishanth.mailer@gmail.com',
-    subject: 'First creation',
-    text: 'Vandhuruchaa'
+    subject: 'Authentication Mail',
+    text: 'Click here to authenticate your account...'
   })
 }
-exports.companyMailer = (company) => {
+exports.companyMailer = (company, id) => {
+
   sgMail.send({
     to: company.contactPersonEmail,
     from: 'nishanth.mailer@gmail.com',
     subject: 'Perilwise Insuretech registration form link',
-    text: `Hi ${company.contactPersonName},
-               ${company.companyName} had made a request to tie-up with Perilwise Insuretech.
-               Please do fill the following form details to complete the registration process.
-               Thank you,
+    html: '<h2>Hi ' + company.contactPersonName + '</h2><p>' + company.companyName + ' had made a request to tie-up with Perilwise Insuretech.Please do fill the <a href=http://localhost:4200/form/' + id + '>form</a> to complete the registration process.</p><p>Thank you,<br/>With regards,<br/>Dev Team<small>(Perilwise Insuretech)</small></p>',
 
-               With regards,
-               Dev Team(Perilwise Insuretech)`
   })
     .then(res => {
       console.log('Mail sent');

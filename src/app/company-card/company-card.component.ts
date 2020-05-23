@@ -1,6 +1,9 @@
-import { Company } from './../models/company.model';
 import { Component, OnInit, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { AuthService } from './../services/auth.service';
+
+import { Company } from './../models/company.model';
 
 @Component({
   selector: 'app-company-card',
@@ -10,10 +13,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class CompanyCardComponent implements OnInit {
 
   @Input() company: Company;
+  admin = false;
 
-  constructor(private snackbar: MatSnackBar) { }
+  constructor(
+    private snackbar: MatSnackBar,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
+    this.admin = this.authService.admin;
   }
 
   openSnackBar() {

@@ -1,28 +1,18 @@
-<mat-form-field class="example-chip-list">
-  <mat-chip-list #chipList aria-label="Fruit selection">
-    <mat-chip
-      *ngFor="let fruit of fruits"
-      [selectable]="selectable"
-      [removable]="removable"
-      (removed)="remove(fruit)"
+<mat-card class="main-card">
+  <mat-card class="in-card"><p>Registration incomplete..</p></mat-card>
+  <p>
+    Unfortunately the contact person of this company have not yet completed the
+    registration process. Please wait for the contact person to complete the
+    registration
+  </p>
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      color="primary"
+      class="dismiss"
+      (click)="helperFnRedirect()"
     >
-      {{ fruit }}
-      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-    </mat-chip>
-    <input
-      placeholder="New fruit..."
-      #fruitInput
-      [formControl]="fruitCtrl"
-      [matChipInputFor]="chipList"
-      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-      (matChipInputTokenEnd)="add($event)"
-    />
-    <!-- [matAutocomplete]="auto" -->
-  </mat-chip-list>
-  <input matInput type="text" />
-  <!-- <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-    <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
-      {{ fruit }}
-    </mat-option>
-  </mat-autocomplete> -->
-</mat-form-field>
+      Okay!!
+    </button>
+  </mat-card-actions>
+</mat-card>

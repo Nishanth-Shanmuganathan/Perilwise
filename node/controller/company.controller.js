@@ -1,17 +1,8 @@
+const ObjectId = require('mongodb').ObjectID;
+
 const Company = require('../models/company')
 const mailer = require('../emails/verification')
-const ObjectId = require('mongodb').ObjectID;
-// const nodemailer = require('nodemailer');
-// const sendgridTransport = require('nodemailer-sendgrid-transport');
 
-// const transporter = nodemailer.createTransport(
-//   sendgridTransport({
-//     auth: {
-//       api_key:
-//         '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'
-//     }
-//   })
-// );
 exports.getCompanies = (req, res, next) => {
   Company.find()
     .then(companies => {
@@ -19,7 +10,14 @@ exports.getCompanies = (req, res, next) => {
         companies: companies
       })
     })
+    .catch(err => {
+      res.status(404).json({
+        message: 'ERROR_IN_FETCHING_DATA',
+        error: err
+      })
+    })
 }
+
 exports.addCompanies = (req, res, next) => {
   const company = new Company({
     companyName: req.body.companyName,
@@ -31,13 +29,16 @@ exports.addCompanies = (req, res, next) => {
     product: req.body.product
   });
   company.save().then(response => {
-    mailer.companyMailer(company)
+    mailer.companyMailer(company, response._id)
     res.status(201).json({
-      data: company
+      data: response
     })
   })
     .catch(err => {
-      console.log(err);
+      res.status(422).json({
+        message: 'INSERTION_FAILED',
+        error: err
+      })
     })
 }
 
@@ -49,10 +50,13 @@ exports.addCompanyDetails = (req, res, next) => {
   Company.findOneAndUpdate(filter, update, { new: true, useFindAndModify: false })
     .then((doc, err) => {
       if (err) {
-        return err;
+        res.status(404).json({
+          message: ERROR_IN_FETCHING_DATA,
+          error: err
+        })
       }
       res.status(201).json({
-        message: 'Details added successfully...',
+        message: 'INSERTION_SUCCESSFUL',
         data: doc
       })
     });
@@ -60,3 +64,16 @@ exports.addCompanyDetails = (req, res, next) => {
 }
 
 
+exports.showCompanyDetails = (req, res, next) => {
+  const id = req.params.id;
+  Company.findOne({ _id: id }).then(company => {
+    res.status(200).json({
+      data: company
+    })
+  }).catch(err => {
+    res.status(404).json({
+      message: 'ERROR_IN_FETCHING_DATA',
+      error: err
+    })
+  })
+}

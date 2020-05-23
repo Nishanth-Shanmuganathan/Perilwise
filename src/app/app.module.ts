@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { AuthInterceptor } from './services/auth.interceptor';
 
 import { HeaderComponent } from './header/header.component';
 import { AuthComponent } from './auth/auth.component';
@@ -45,7 +46,7 @@ import { Err404Component } from './err404/err404.component';
     HttpClientModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,3 +1,7 @@
+:host {
+  display: block;
+}
+
 .auth-wrapper {
   min-width: 90vw;
   min-height: 90vh;

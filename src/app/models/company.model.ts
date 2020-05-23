@@ -7,6 +7,7 @@ export class Company {
     public city: string,
     public state: string,
     public product: string,
+    public _id?: string,
     public id?: string
   ) { }
 }

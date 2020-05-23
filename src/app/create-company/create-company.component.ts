@@ -1,9 +1,9 @@
-import { MessageComponent } from './../message/message.component';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, } from '@angular/material/dialog';
 
 import { CompanyService } from './../services/company.service';
+
 import { Company } from './../models/company.model';
 
 @Component({
@@ -48,7 +48,7 @@ export class CreateCompanyComponent implements OnInit {
     this.companyService.createCompany(company)
       .subscribe(res => {
         this.companyService.companies.push(res.data);
-        console.log(res);
+        // console.log(res);
         this.companyService.companySubject.next();
         this.companyForm.reset();
         this.helperFormAction = 'submitted';

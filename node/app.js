@@ -4,31 +4,35 @@ const mongoose = require('mongoose')
 
 const app = express();
 
-mongoose.connect('mongodb+srv://Nishanth:Kavundan@5@cluster0-ggytq.mongodb.net/perilwise?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb+srv://Perilwise:eYJElu3DIu9V334v@cluster0-ggytq.mongodb.net/perilwise?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
   .then((res) => {
     console.log('Connection Successful...');
   })
   .catch((err) => {
-    console.log(err);
+    res.status(500).json({
+      message: 'DATABASE_CONNECTION_FAILED',
+      error: err
+    });
   })
 
 const companyController = require('./controller/company.controller');
 const authController = require('./controller/auth.controller');
 
-const Company = require('./models/company')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(authController.cors);
 
-app.get('', companyController.getCompanies)
-app.post('/', companyController.addCompanies)
+app.get('', authController.tokenValidator, companyController.getCompanies)
+app.post('/', authController.tokenValidator, companyController.addCompanies)
 
 app.post('/auth/register', authController.register);
-app.post('/auth/login', authController.register);
+app.post('/auth/login', authController.login);
 
+app.get('/form/:id', companyController.showCompanyDetails);
 app.post('/add-details/:id', companyController.addCompanyDetails);
 
+app.get('/*', authController.wildcard);
+
 app.listen(3200)
-console.log('listening...');

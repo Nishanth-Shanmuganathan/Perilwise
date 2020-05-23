@@ -20,8 +20,8 @@ export class AboutFormService {
         companyItEmail: pre.it.spocEmail,
         companyItMobile: pre.it.spocMobile,
         platformUsed: pre.it.platform,
-        appStart: pre.it.start.toUTCString(),
-        appEnd: pre.it.end.toUTCString(),
+        appStart: pre.it.start,
+        appEnd: pre.it.end,
         ip: pre.it.ip
       },
       additionalDetails: {
@@ -45,7 +45,7 @@ export class AboutFormService {
         approvalFile: add.approvalFile,
         autoRenewal: add.autoRenewal,
         specificConditions: add.specificConditions,
-        mouDate: add.mouDate.toUTCString(),
+        mouDate: add.mouDate,
         mouPeriod: add.mouPeriod,
         signingAuthPartner: add.signingAuthPartner,
         signingAuthBagic: add.signingAuthBagic,
@@ -56,23 +56,3 @@ export class AboutFormService {
     return this.http.post('http://localhost:3200/add-details/' + id, model);
   }
 }
-
-
-// signingAuthBagic: "null"
-// signingAuthPartner: "null"
-// sow: "null"
-// specificConditions: "null"
-// mouDate: Wed May 20 2020 00: 00: 00 GMT + 0530(India Standard Time) { }
-// mouPeriod: 0
-// otherAspects: "sxdzcf"
-// periodOfAgreement: 0
-// bagic:
-// commercialsApproval: false
-// confidentialInfoShare: false
-// inIndia: false
-// location: "onsite"
-// sharing: "company_is_sharing"
-// softwarePurchaseAgreement: false
-// agreementFile: File { name: "perilwise.bg.png", lastModified: 1590035195343, lastModifiedDate: Thu May 21 2020 09: 56: 35 GMT + 0530(India Standard Time), webkitRelativePath: "", size: 152017, … }
-// approvalFile: File { name: "robot.jpeg", lastModified: 1590059372697, lastModifiedDate: Thu May 21 2020 16: 39: 32 GMT + 0530(India Standard Time), webkitRelativePath: "", size: 69634, … }
-// autoRenewal: false

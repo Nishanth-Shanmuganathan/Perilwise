@@ -1,13 +1,16 @@
 <mat-horizontal-stepper
   [linear]="true"
   #stepper
-  *ngIf="helperStatus === 'pristine' || helperStatus === 'loading'"
+  *ngIf="
+    (helperStatus === 'pristine' || helperStatus === 'loading') &&
+    !helperFormHide
+  "
 >
   <mat-step [stepControl]="perquisites">
     <form
       [formGroup]="perquisites"
       class="first"
-      (ngSubmit)="onSubmit(stepper)"
+      (ngSubmit)="onSubmitOne(stepper)"
     >
       <ng-template matStepLabel>Company Details Form</ng-template>
       <table>
@@ -171,7 +174,7 @@
     <form
       [formGroup]="form"
       fxLayoutAlign="center center"
-      (ngSubmit)="onSubmit(stepper)"
+      (ngSubmit)="onSubmit()"
     >
       <ng-template matStepLabel>Additional Details Form</ng-template>
       <table>
@@ -391,7 +394,7 @@
           </td>
         </tr>
         <tr></tr>
-        <tr>
+        <!-- <tr>
           <td>
             Please inform is the period of the Agreement is locked without any
             right to terminate? If yes please send the competent authority’s
@@ -418,7 +421,7 @@
               />
             </div>
           </td>
-        </tr>
+        </tr> -->
         <tr>
           <td colspan="2">
             <small
@@ -523,7 +526,7 @@
             </mat-form-field>
           </td>
         </tr>
-        <tr>
+        <!-- <tr>
           <td>
             Do we have any existing agreements with this party and if so copies
             of the same be provided.
@@ -549,7 +552,7 @@
               />
             </div>
           </td>
-        </tr>
+        </tr> -->
         <tr>
           <td colspan="2">
             <mat-form-field fxFill>
@@ -575,7 +578,11 @@
   </mat-step>
 </mat-horizontal-stepper>
 
-<mat-card class="main-card" *ngIf="helperStatus === 'submitted'">
+<mat-card
+  class="main-card"
+  *ngIf="helperStatus === 'submitted'"
+  @displayFadeState
+>
   <mat-card class="in-card"><p>Registration successful..</p></mat-card>
   <p>
     Your response has been successfully submitted..

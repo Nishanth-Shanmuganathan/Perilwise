@@ -12,4 +12,5 @@ img {
   width: calc(20vw - 20px);
   margin-left: 10px;
   min-width: 250px;
+  height: 200px;
 }

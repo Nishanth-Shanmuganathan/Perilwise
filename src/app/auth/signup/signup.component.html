@@ -1,6 +1,9 @@
 <div class="form-wrapper">
   <form novalidate [formGroup]="signupForm" (ngSubmit)="onSubmit()">
     <table cellpadding="5">
+      <mat-error class="server-error" *ngIf="helperServerError">{{
+        helperServerError
+      }}</mat-error>
       <tr>
         <td>
           <mat-form-field fxFill>
@@ -106,7 +109,11 @@
             color="primary"
             [disabled]=""
           >
-            <span> Register</span>
+            <span>
+              {{
+                helperStatus === "pristine" ? "Register" : "Registering..."
+              }}</span
+            >
           </button>
         </td>
       </tr>

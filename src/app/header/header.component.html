@@ -5,15 +5,20 @@
     fxLayoutAlign="space-between center"
   >
     <div class="logo-wrapper" flexLayout="row" fxLayoutAlign="start center">
-      <img src="../../assets/perilwise.logo.jpg" />
-      <span>Perilwise</span>
+      <a routerLink="" fxLayoutAlign="start center">
+        <img src="../../assets/perilwise.logo.jpg" />
+        <span>Perilwise</span>
+      </a>
     </div>
-    <div class="navigation">
+    <div class="navigation" *ngIf="loggedIn">
       <ul class="nav-items">
-        <li (click)="openSnackBar()"><span>About Us</span></li>
-        <li (click)="openSnackBar()"><span>Products</span></li>
-        <li (click)="openSnackBar()"><span>Blog</span></li>
-        <li (click)="openSnackBar()"><span>Contact Us</span></li>
+        <li (click)="openSnackBar()" class="nav"><span>About Us</span></li>
+        <li (click)="openSnackBar()" class="nav"><span>Products</span></li>
+        <li (click)="openSnackBar()" class="nav"><span>Blog</span></li>
+        <li (click)="openSnackBar()" class="nav"><span>Contact Us</span></li>
+        <li (click)="logout()" class="logout nav">
+          <span>Logout</span>
+        </li>
       </ul>
     </div>
   </mat-toolbar-row>

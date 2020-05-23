@@ -1,18 +1,25 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Company } from '../models/company.model';
 import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+
+import { AuthService } from './auth.service';
+
+import { Company } from '../models/company.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompanyService {
 
+
   companySubject = new Subject<void>();
   companies = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private authService: AuthService,
+    private router: Router) { }
 
   public createCompany(company: Company) {
     return this.http.post<{ data: Company }>('http://localhost:3200/', company);
@@ -39,6 +46,16 @@ export class CompanyService {
         this.companies = res;
         this.companySubject.next();
       },
-        err => console.log(err));
+        err => {
+          if (this.authService.errorHandler(err) === 'Oops..Something wrong with servers...') {
+            this.router.navigate(['server_down'])
+          }
+        });
+  }
+
+
+  getCompanyDetails(admin: boolean, id: string) {
+    if (!admin) { return null }
+    return this.http.get('http://localhost:3200/form/' + id);
   }
 }

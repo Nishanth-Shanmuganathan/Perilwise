@@ -1,6 +1,9 @@
-import { AuthService } from './../../services/auth.service';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+import { AuthService } from './../../services/auth.service';
+
 import { Auth } from 'src/app/models/auth.model';
 
 @Component({
@@ -10,10 +13,15 @@ import { Auth } from 'src/app/models/auth.model';
 })
 export class SigninComponent implements OnInit {
 
+
   signinForm: FormGroup;
 
+  helperStatus = 'pristine';
   helperPasswordVisible = false;
-  constructor(private authService: AuthService) { }
+  helperServerError: string;
+
+  constructor(private authService: AuthService,
+    private route: Router) { }
 
   ngOnInit(): void {
     this.signinForm = new FormGroup({
@@ -23,12 +31,23 @@ export class SigninComponent implements OnInit {
   }
 
   onSubmit() {
+    this.helperStatus = 'loading';
+    if (this.signinForm.invalid) {
+      return;
+    }
     const loginCredentials: Auth = {
       email: this.signinForm.value.email,
       password: this.signinForm.value.password,
     }
-    console.log(loginCredentials);
     this.authService.loginUser(loginCredentials)
-      .subscribe(res => console.log(res), err => console.error(err));
+      .subscribe(res => {
+        this.helperStatus = 'pristine';
+        if (res.token) {
+          this.route.navigate(['']);
+        }
+      }, err => {
+        this.helperStatus = 'pristine';
+        this.helperServerError = this.authService.errorHandler(err);
+      });
   }
 }

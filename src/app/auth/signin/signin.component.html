@@ -1,5 +1,8 @@
 <div class="form-wrapper">
   <form novalidate [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+    <mat-error class="server-error" *ngIf="helperServerError">{{
+      helperServerError
+    }}</mat-error>
     <table cellpadding="5">
       <tr>
         <td>
@@ -66,7 +69,11 @@
             class="btn-block"
             color="primary"
           >
-            <span> Login</span>
+            <span>
+              {{
+                helperStatus === "pristine" ? "Login" : "Logging in..."
+              }}</span
+            >
           </button>
         </td>
       </tr>

@@ -5,16 +5,20 @@
       >{{ company.city }} , {{ company.state }}</mat-card-subtitle
     >
   </mat-card-header>
-  <img mat-card-image src="../../assets/company.jpg" />
-
+  <mat-card-content>
+    <img mat-card-image src="../../assets/company.jpg" />
+  </mat-card-content>
   <mat-card-actions fxLayoutAlign="space-evenly center">
     <button mat-raised-button color="primary" (click)="openSnackBar()">
-      <mat-icon>meeting_room</mat-icon>
       <span>Profile</span>
     </button>
-    <button mat-raised-button class="blue" (click)="openSnackBar()">
-      <mat-icon>near_me</mat-icon>
-      <span>Official Page</span>
+    <button
+      *ngIf="admin"
+      mat-raised-button
+      class="blue"
+      [routerLink]="'/form/' + company.id"
+    >
+      <span>View Details</span>
     </button>
   </mat-card-actions>
 </mat-card>

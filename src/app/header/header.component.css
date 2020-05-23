@@ -24,8 +24,8 @@ a {
   text-decoration: none;
 }
 
-a:hover,
-a:active,
+.nav:hover,
+.nav:active,
 .active {
   color: rgb(189, 189, 189);
 }
@@ -34,7 +34,16 @@ a:active,
   position: absolute;
 }
 
-li:hover {
+li {
   cursor: pointer;
+  color: silver;
+}
+
+.logout {
+  color: white;
+  cursor: pointer;
+}
+
+.logout:hover {
   color: silver;
 }

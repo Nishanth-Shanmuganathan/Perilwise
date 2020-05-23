@@ -1,7 +1,7 @@
 <main fxFlex fxLayout="column">
   <section class="poster" fxLayout="row">
     <div class="left" fxLayoutAlign="center center">
-      <img src="../../assets/perilwise.bg.png" />
+      <!-- <img src="../../assets/perilwise.bg.png" /> -->
     </div>
     <div class="right" fxLayout="column" fxLayoutAlign="center center">
       <p>We help entrepreneurs to take confident steps...</p>
@@ -15,15 +15,18 @@
       </button>
     </div>
   </section>
-  <section class="middle">
+  <section class="middle" *ngIf="companies?.length > 0" @displayFadeState>
     <p>The top entrepreneurs of the zone believe us..</p>
   </section>
   <section
+    *ngIf="companies?.length > 0"
     class="company-showcase"
     fxLayout="row wrap"
     fxLayoutAlign="space-evenly center"
+    @displayFadeState
   >
     <app-company-card
+      @displayFadeState
       *ngFor="let company of companies"
       [company]="company"
     ></app-company-card>

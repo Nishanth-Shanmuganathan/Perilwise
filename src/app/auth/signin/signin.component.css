@@ -16,3 +16,11 @@ mat-error,
 mat-hint {
   font-size: 14px;
 }
+
+.server-error {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid red;
+  text-align: center;
+  background-color: rgb(255, 239, 239);
+}

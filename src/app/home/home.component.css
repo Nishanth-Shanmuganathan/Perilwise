@@ -1,3 +1,7 @@
+:host {
+  display: block;
+}
+
 .create {
   margin: 5% 5% 0% 0%;
 }
@@ -9,6 +13,10 @@
 
 .left {
   width: 60%;
+  background-image: url('../../assets/perilwise.bg.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
   height: inherit;
 }
 
@@ -23,7 +31,6 @@ img {
 
 .company-showcase {
   margin: 3% 5% 0% 5%;
-  /* background-color: red; */
 }
 
 app-company-card {
@@ -49,4 +56,9 @@ button {
   color: white;
   background-color: #3F51B5;
   box-shadow: 5px 5px 10px rgb(150, 150, 150);
+}
+
+main {
+  width: 100%;
+  min-height: 80vh;
 }
