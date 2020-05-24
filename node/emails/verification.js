@@ -1,17 +1,17 @@
 const sgMail = require('@sendgrid/mail')
 
-const sendgridAPIKey = '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'
+const env = require('./../env')
 
-sgMail.setApiKey(sendgridAPIKey)
+sgMail.setApiKey(env.API_KEY)
 
-exports.autheticationMailer = (company) => {
-  sgMail.send({
-    to: company.contactPersonEmail,
-    from: 'nishanth.mailer@gmail.com',
-    subject: 'Authentication Mail',
-    text: 'Click here to authenticate your account...'
-  })
-}
+// exports.autheticationMailer = (company) => {
+//   sgMail.send({
+//     to: company.contactPersonEmail,
+//     from: 'nishanth.mailer@gmail.com',
+//     subject: 'Authentication Mail',
+//     text: 'Click here to authenticate your account...'
+//   })
+// }
 exports.companyMailer = (company, id) => {
 
   sgMail.send({

@@ -2,9 +2,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose')
 
+const env = require('./env');
+
 const app = express();
 
-mongoose.connect('mongodb+srv://Perilwise:eYJElu3DIu9V334v@cluster0-ggytq.mongodb.net/perilwise?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(env.DB_LINK, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((res) => {
     console.log('Connection Successful...');
   })
